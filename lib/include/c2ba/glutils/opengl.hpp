@@ -1,23 +1,7 @@
 #pragma once
 
-#ifndef C2BA_GLUTILS_GL3_HEADER_PATH
+#ifdef C2BA_GLUTILS_GL3_HEADER
 
-#define C2BA_GLUTILS_GL3_HEADER_PATH <GL/glew.h>
-
-#include C2BA_GLUTILS_GL3_HEADER_PATH
-
-inline bool initOpenGL() {
-    glewExperimental = GL_TRUE;
-    auto glewResult = glewInit();
-    if (glewResult == GLEW_OK) {
-        return true;
-    }
-    // #todo Must log glewGetErrorString(glewResult);
-    return false;
-}
-
-#else
-
-#include C2BA_GLUTILS_GL3_HEADER_PATH
+#include C2BA_GLUTILS_GL3_HEADER
 
 #endif

@@ -6,10 +6,13 @@ set (C2BA_LIBRARY_CMAKE_PREFIX C2BA_GLUTILS)
 project (${C2BA_LIBRARY_NAME})
 
 option (${C2BA_LIBRARY_CMAKE_PREFIX}_BUILD_TESTS "Build tests for ${C2BA_LIBRARY_NAME} library" OFF)
+set (${C2BA_LIBRARY_CMAKE_PREFIX}_GL3_HEADER "" CACHE STRING "Header to include for the declaration of OpenGL 3+ symbols")
+set (${C2BA_LIBRARY_CMAKE_PREFIX}_GL3_INCLUDE_DIR "" CACHE STRING "Path to the header to include for the declaration of OpenGL 3+ symbols")
+set (${C2BA_LIBRARY_CMAKE_PREFIX}_GL3_LIBRARIES "" CACHE STRING "Libraries to link to for the definition of OpenGL 3+ symbols (may be empty)")
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-find_package(GLEW REQUIRED)
+find_package(OpenGL REQUIRED)
 
 set (${C2BA_LIBRARY_NAME}_VERSION_MAJOR 0)
 set (${C2BA_LIBRARY_NAME}_VERSION_MINOR 1)
@@ -27,9 +30,11 @@ include_directories ("lib/include/c2ba")
 include_directories ("${PROJECT_BINARY_DIR}/include")
 include_directories ("${PROJECT_BINARY_DIR}/include/c2ba")
 
-if (DEFINED ${C2BA_LIBRARY_CMAKE_PREFIX}_GL3_HEADER_PATH)
-    add_definitions(-D${C2BA_LIBRARY_CMAKE_PREFIX}_GL3_HEADER_PATH=${${C2BA_LIBRARY_CMAKE_PREFIX}_GL3_HEADER_PATH})
+if (DEFINED ${C2BA_LIBRARY_CMAKE_PREFIX}_GL3_HEADER)
+    add_definitions(-D${C2BA_LIBRARY_CMAKE_PREFIX}_GL3_HEADER=${${C2BA_LIBRARY_CMAKE_PREFIX}_GL3_HEADER})
 endif ()
+
+add_definitions(-DNOMINMAX)
 
 file (
     GLOB_RECURSE
@@ -43,16 +48,22 @@ file (
     lib/*.cpp lib/*.hpp lib/*.in
 )
 
-include_directories(${GLEW_INCLUDE_DIR})
-
 add_library (
     ${C2BA_LIBRARY_NAME}
     ${PROJECT_FILES}
 )
 
+target_include_directories(
+    ${C2BA_LIBRARY_NAME}
+    PUBLIC
+    ${OPENGL_INCLUDE_DIRS}
+    ${${C2BA_LIBRARY_CMAKE_PREFIX}_GL3_INCLUDE_DIR}
+)
+
 target_link_libraries (
     ${C2BA_LIBRARY_NAME}
-    ${GLEW_LIBRARY}
+    ${OPENGL_LIBRARIES}
+    ${${C2BA_LIBRARY_CMAKE_PREFIX}_GL3_LIBRARY}
 )
 
 source_group ("c2ba\\glutils" REGULAR_EXPRESSION "lib/(src|include/c2ba/glutils)/[^/]*.*")
