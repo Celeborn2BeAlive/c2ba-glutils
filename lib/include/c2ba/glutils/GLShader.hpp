@@ -72,11 +72,13 @@ public:
     }
 };
 
-inline std::string loadShaderSource(const std::string& filepath) {
+template<typename Path>
+inline std::string loadShaderSource(const Path& filepath) {
     std::ifstream input(filepath);
     if(!input) {
-        std::cerr << "Unable to open file " << filepath << std::endl;
-        throw std::runtime_error("Unable to open file " + filepath);
+        std::stringstream ss;
+        ss << "Unable to open file " << filepath;
+        throw std::runtime_error(ss.str());
     }
 
     std::stringstream buffer;
