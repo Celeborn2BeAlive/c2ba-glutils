@@ -1,0 +1,3 @@
+lib/include/KHR/khrplatform.h
+lib/include/glad/glad.h
+lib/src/glad.c
