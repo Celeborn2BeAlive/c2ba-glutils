@@ -37,11 +37,11 @@ GEN_UNIFORM_HELPER(GLuint64, Uniform1ui64NV);
 #define GEN_UNIFORM_HELPER(TYPE, FUNCTION) \
     template<> \
     struct GLUniformHelper<TYPE> { \
-        static void set(GLuint programID, GLint location, TYPE value) { \
-            glProgram##FUNCTION(programID, location, 1, value.data()); \
+        static void set(GLuint programID, GLint location, const TYPE::value_type* ptr) { \
+            glProgram##FUNCTION(programID, location, 1, ptr); \
         } \
-        static void set(GLint location, TYPE value) { \
-            gl##FUNCTION(location, 1, value.data()); \
+        static void set(GLint location, const TYPE::value_type* ptr) { \
+            gl##FUNCTION(location, 1, ptr); \
         } \
     }
 
@@ -61,11 +61,11 @@ GEN_UNIFORM_HELPER(GLuint4, Uniform4uiv);
 #define GEN_UNIFORM_HELPER(TYPE, FUNCTION) \
     template<> \
     struct GLUniformHelper<TYPE> { \
-        static void set(GLuint programID, GLint location, TYPE value) { \
-            glProgram##FUNCTION(programID, location, 1, GL_FALSE, value.data()); \
+        static void set(GLuint programID, GLint location, const TYPE::value_type* ptr) { \
+            glProgram##FUNCTION(programID, location, 1, GL_FALSE, ptr); \
         } \
-        static void set(GLint location, TYPE value) { \
-            gl##FUNCTION(location, 1, GL_FALSE, value.data()); \
+        static void set(GLint location, const TYPE::value_type* ptr) { \
+            gl##FUNCTION(location, 1, GL_FALSE, ptr); \
         } \
     }
 
@@ -104,11 +104,11 @@ GEN_UNIFORM_HELPER(GLuint64, Uniform1ui64vNV);
 #define GEN_UNIFORM_HELPER(TYPE, FUNCTION) \
     template<> \
     struct GLUniformHelper<TYPE[]> { \
-        static void set(GLuint programID, GLint location, GLsizei count, const TYPE* value) { \
-            glProgram##FUNCTION(programID, location, count, value[0].data()); \
+        static void set(GLuint programID, GLint location, GLsizei count, const TYPE::value_type* value) { \
+            glProgram##FUNCTION(programID, location, count, value); \
         } \
-        static void set(GLint location, GLsizei count, const TYPE* value) { \
-            gl##FUNCTION(location, count, value[0].data()); \
+        static void set(GLint location, GLsizei count, const TYPE::value_type* value) { \
+            gl##FUNCTION(location, count, value); \
         } \
     }
 
@@ -128,11 +128,11 @@ GEN_UNIFORM_HELPER(GLuint4, Uniform4uiv);
 #define GEN_UNIFORM_HELPER(TYPE, FUNCTION) \
     template<> \
     struct GLUniformHelper<TYPE[]> { \
-        static void set(GLuint programID, GLint location, GLsizei count, const TYPE* value) { \
-            glProgram##FUNCTION(programID, location, count, GL_FALSE, value[0].data()); \
+        static void set(GLuint programID, GLint location, GLsizei count, const TYPE::value_type* value) { \
+            glProgram##FUNCTION(programID, location, count, GL_FALSE, value); \
         } \
-        static void set(GLint location, GLsizei count, const TYPE* value) { \
-            gl##FUNCTION(location, count, GL_FALSE, value[0].data()); \
+        static void set(GLint location, GLsizei count, const TYPE::value_type* value) { \
+            gl##FUNCTION(location, count, GL_FALSE, value); \
         } \
     }
 
