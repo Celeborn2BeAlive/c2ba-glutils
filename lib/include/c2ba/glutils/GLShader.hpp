@@ -8,7 +8,7 @@
 #include <fstream>
 #include <sstream>
 
-#define BNZ_SHADERSRC(str) #str
+#define C2BA_SHADERSRC(str) #str
 
 namespace c2ba {
 

@@ -272,6 +272,6 @@ private:
     GLint m_nLocation;
 };
 
-#define BNZ_GLUNIFORM(PROGRAM, TYPE, NAME) GLUniform<TYPE> NAME { PROGRAM, #NAME }
+#define C2BA_GLUNIFORM(PROGRAM, TYPE, NAME) c2ba::GLUniform<TYPE> NAME { PROGRAM, #NAME }
 
 }
