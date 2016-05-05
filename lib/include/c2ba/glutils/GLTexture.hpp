@@ -136,6 +136,7 @@ public:
             format, type, data);
     }
 
+    // #todo: add check of texture format combination: https://www.khronos.org/opengles/sdk/docs/man3/docbook4/xhtml/glTexImage2D.xml
     void setSubImage(
         GLint level,
         GLenum format,
