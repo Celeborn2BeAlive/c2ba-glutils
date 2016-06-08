@@ -144,18 +144,18 @@ public:
 };
 
 template<typename T>
-inline GLBufferStorage<T> genBufferStorage(const T& value, GLbitfield flags = 0) {
+inline GLBufferStorage<T> makeBufferStorage(const T& value, GLbitfield flags = 0) {
     return GLBufferStorage<T>(sizeof(value), &value, flags);
 }
 
 template<typename T>
-inline GLBufferStorage<T> genBufferStorage(size_t size, const T* data,
+inline GLBufferStorage<T> makeBufferStorage(size_t size, const T* data,
                                              GLbitfield flags = 0) {
     return GLBufferStorage<T>(size, data, flags);
 }
 
 template<typename T>
-inline GLBufferStorage<T> genBufferStorage(const std::vector<T>& data, GLbitfield flags = 0) {
+inline GLBufferStorage<T> makeBufferStorage(const std::vector<T>& data, GLbitfield flags = 0) {
     return GLBufferStorage<T>(data, flags);
 }
 

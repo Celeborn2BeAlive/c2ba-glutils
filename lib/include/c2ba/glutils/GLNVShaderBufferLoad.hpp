@@ -18,6 +18,12 @@ public:
                                          &m_nAddress);
     }
 
+    explicit GLBufferAddress(const GLBufferStorage<T>& buffer) {
+        glGetNamedBufferParameterui64vNV(buffer.glId(),
+            GL_BUFFER_GPU_ADDRESS_NV,
+            &m_nAddress);
+    }
+
     explicit operator GLuint64() const {
         return m_nAddress;
     }
@@ -51,6 +57,26 @@ void makeResident(const GLBuffer<T>& buffer, GLenum access) {
 template<typename T>
 void makeNonResident(const GLBuffer<T>& buffer) {
     glMakeNamedBufferNonResidentNV(buffer.glId());
+}
+
+template<typename T>
+void makeResident(const GLBufferStorage<T>& buffer, GLenum access) {
+    glMakeNamedBufferResidentNV(buffer.glId(), access);
+}
+
+template<typename T>
+void makeNonResident(const GLBufferStorage<T>& buffer) {
+    glMakeNamedBufferNonResidentNV(buffer.glId());
+}
+
+template<typename T>
+GLBufferAddress<T> getAddress(const GLBuffer<T>& buffer) {
+    return GLBufferAddress<T>{ buffer };
+}
+
+template<typename T>
+GLBufferAddress<T> getAddress(const GLBufferStorage<T>& buffer) {
+    return GLBufferAddress<T>{ buffer };
 }
 
 }
