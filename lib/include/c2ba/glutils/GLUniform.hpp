@@ -158,6 +158,16 @@ struct GLUniformHelper<GLBufferAddress<T>> {
     }
 };
 
+template<typename T>
+struct GLUniformHelper<T*> {
+    static void set(GLuint programID, GLint location, GLBufferAddress<T> value) {
+        glProgramUniform1ui64NV(programID, location, GLuint64(value));
+    }
+    static void set(GLint location, GLBufferAddress<T> value) {
+        glUniform1ui64NV(location, GLuint64(value));
+    }
+};
+
 template<typename T, typename TextureType>
 struct GLSLSampler;
 
